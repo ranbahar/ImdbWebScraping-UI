@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<div class="card" *ngIf="celeb">
+  <div class="card-header" style="text-align: center">
+    <mat-progress-spinner *ngIf="isSpinnerOn" diameter="40" style="position: absolute"
+                          mode="indeterminate"></mat-progress-spinner>
+    <h1>{{pageTitle}}</h1>
+  </div>
+  <div id="details">
+    <div> Name: {{ celeb.name}}</div>
+    <div> Title: {{ celeb.title}}</div>
+    <div *ngIf="!isEdit"> Description: {{ celeb.desc}}</div>
+
+    <mat-form-field *ngIf="isEdit" class="example-full-width">
+      <mat-label>Edit description</mat-label>
+      <textarea matInput [(ngModel)]="celeb.desc"></textarea>
+    </mat-form-field>
+
+    <div> gender: {{ celeb.gender}}</div>
+    <div> B-Day: {{ celeb.birthDay === null ? 'N/A' : celeb.birthDay | date: "longDate" }}</div>
+  </div>
+  <div class="gallery" style="margin: auto">
+    <img [src]='celeb.image' [title]='celeb.name'/>
+  </div>
+  <div class="card-footer">
+    <button [attr.disabled]="isSpinnerOn ? '' : null" [attr.id]="isSpinnerOn ? 'disable' : null"
+            class="btn btn-outline-secondary"
+            (click)="onBack()"
+            style="width:80px">
+      <i class="fa fa-chevron-left"></i>
+      Back
+    </button>
+    <button *ngIf="!isEdit" class="btn btn-outline-secondary"
+            (click)="onEdit()"
+            style="width:80px">
+      <i class="fa fa-chevron-left"></i>
+      Edit
+    </button>
+    <button [attr.disabled]="isSpinnerOn ? '' : null" [attr.id]="isSpinnerOn ? 'disable' : null" *ngIf="isEdit"
+            class="btn btn-outline-success"
+            (click)="update()"
+            style="width:80px">
+      <i class="fa fa-chevron-left"></i>
+      Save
+    </button>
+  </div>
+</div>

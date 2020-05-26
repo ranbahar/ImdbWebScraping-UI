@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<div class="jumbotron" *ngIf="celebsList.length">
+  <h1>TOP {{celebsList.length}} Celebrities</h1>
+</div>
+
+
+<button [attr.disabled]="isSpinnerOn ? '' : null" [attr.id]="isSpinnerOn ? 'disable' : null"
+        style=" top: 0; right: 0; margin: 10px; position: absolute;" id="button"
+        class="btn btn-primary"
+        (click)="reloadList()">
+  Reload List
+</button>
+<div>
+
+  <mat-progress-spinner *ngIf="isSpinnerOn" mode="indeterminate"></mat-progress-spinner>
+
+</div>
+
+<div>
+  <div style="font-size: 25px; padding-left: 4px">Search Celebrity:
+    <input type="text"
+           [(ngModel)]="celebFilter"
+    />
+  </div>
+
+
+  <div class="alert" *ngIf="errorMessage">
+    <span (click)="removeErrorMsg()" class="closebtn">&times;</span>
+    <strong>Error!</strong> {{errorMessage}}
+  </div>
+
+  <div class="gallery" *ngFor="let celeb of filterCelebs">
+    <div id="details">
+      <div>Name: <a [class.disabled]="isSpinnerOn ? true : null " aria-disabled="true"
+                    [routerLink]="['/celebs', celeb.id]">
+        {{ celeb.name}}
+      </a></div>
+      <div> Title: {{ celeb.title}}</div>
+      <!--  <div> desc: {{ celeb.desc}}</div>-->
+      <div> Gender: {{ celeb.gender}}</div>
+      <div> B-Day: {{ celeb.birthDay === null ? 'N/A' : celeb.birthDay | date :'longDate'}}</div>
+    </div>
+    <div>
+      <img [src]='celeb.image' [title]='celeb.name'/>
+    </div>
+    <button [attr.disabled]="isSpinnerOn ? '' : null" [attr.id]="isSpinnerOn ? 'disable' : null" class="btn btn-danger"
+            (click)='removeCeleb(celeb.id)'>Remove
+    </button>
+
+  </div>
+</div>

@@ -9,7 +9,7 @@ import {catchError, tap} from 'rxjs/operators';
 })
 export class ImdbService {
 
-  private celebsURL = 'http://localhost:8080/api/v1/imdb';
+  private celebsURL = 'http://localhost:8080/api/v1/imdb'; // for mockDB 'http://localhost:3000/celebs'
 
   constructor(private http: HttpClient) {
 
